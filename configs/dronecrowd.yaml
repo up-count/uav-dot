@@ -1,0 +1,36 @@
+# MAIN
+debug: False
+test_only: False
+visualize_test_images: False
+restore_from_ckpt:
+
+# DATA CONFIGS
+data_path: /home/user/Datasets/Dronecrowd/
+dataset: dronecrowd #dronecrowd or dronecrowd-folds
+data_fold: -1 # -1 for default train/val split else 0-4
+workers: 10
+batch_size: 8
+image_size: [1920, 1088] # 1080 is padded to 1088
+mosaic: 0.8
+
+# MODEL CONFIGS
+input_channels: 3
+output_channels: 1
+encoder_name: mit_b2
+mask_size: [960, 544] # 1/2 of image_size 
+spatial_mode: pixel # interpolate, pixel
+loss: dot # mse, dot
+lr: 3e-4
+obj_threshold: 0.2
+
+# TRAINING CONFIGS
+devices: 1
+precision: 16-mixed
+epochs: 100
+monitor: val_f1 # val_loss, val_f1
+monitor_mode: max
+es_patience: 20 # early stopping patience
+
+# DATA STATS
+data_mean: [ 0.38051389, 0.38728308, 0.37517634 ]
+data_std: [ 0.23425215, 0.2339074,  0.24194536 ]

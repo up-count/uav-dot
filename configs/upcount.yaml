@@ -1,0 +1,36 @@
+# MAIN
+debug: False
+test_only: False
+visualize_test_images: False
+restore_from_ckpt:
+
+# DATA CONFIGS
+data_path: /home/user/Datasets/UP-COUNT/
+dataset: upcount #dronecrowd or dronecrowd-folds
+data_fold: -1 # -1 for default train/val split else 0-4
+workers: 10
+batch_size: 8
+image_size: [3840, 2176] # 2160 is padded to 2176
+mosaic: 0.8
+
+# MODEL CONFIGS
+input_channels: 3
+output_channels: 1
+encoder_name: mit_b2
+mask_size: [960, 544] # 1/2 of image_size 
+spatial_mode: pixel # interpolate, pixel
+loss: dot # mse, dot
+lr: 3e-4
+obj_threshold: 0.2
+
+# TRAINING CONFIGS
+devices: 1
+precision: 16-mixed
+epochs: 100
+monitor: val_f1 # val_loss, val_f1
+monitor_mode: max
+es_patience: 20 # early stopping patience
+
+# DATA STATS
+data_mean: [ 0.44356189, 0.44594052, 0.41271554 ]
+data_std: [ 0.21697577, 0.20454077, 0.21697334 ]

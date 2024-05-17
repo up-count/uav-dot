@@ -1,0 +1,13 @@
+opencv-python
+torch
+torchvision
+torchmetrics
+timm
+pytorch-lightning
+hydra-core
+albumentations
+neptune-client
+scikit-learn
+pycocotools
+segmentation-models-pytorch
+albumentations
