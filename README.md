@@ -4,7 +4,7 @@ The DOT approach defines objects as pairs of coordinates and uses an encoder-dec
 
 ## Results
 
-The repository is a supplement to the paper "More Pixel, More Precision: Dot Localisation and Pixel Distill Module for Enhanced Object Detection in Drone Imagery" submitted to the European Conference on Computer Vision (ECCV) 2024 conference. The method achieves state-of-the-art results on the DroneCrowd and newly introduced UP-COUNT datasets. The results are summarized in the table below.
+The repository is a supplement to the paper "More Pixels, More Precision: Enhancing People Localisation in Drone Imagery Using Dot Approach and Pixel Distill Module". The method achieves state-of-the-art results on the DroneCrowd and newly introduced UP-COUNT datasets. The results are summarized in the table below.
 
 | **Model** | Dronecrowd |         | UP-COUNT |         |
 |:---------:|:----------:|:-------:|:--------:|:-------:|
