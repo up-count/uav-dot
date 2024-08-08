@@ -57,6 +57,8 @@ Download the checkpoints from the links below and place them in the `./checkpoin
 |    DOT    |   UP-COUNT  |   60.66   |   69.07     | [download](https://drive.google.com/file/d/16MghcySpCxS0OxJzTJyRLr3AZKZ7cP0w/view?usp=sharing) |
 |  DOT + PD |   UP-COUNT  |   66.49   |   75.46     | [download](https://drive.google.com/file/d/1K-SkfIPbivnOw7atjRQHW11Bt0-bhcKi/view?usp=sharing) |
 
+Alternatively, you can find checkpoints [here](https://chmura.put.poznan.pl/s/SGlQ3OFfgRJr86g).
+
 ### Training
 
 ```bash
