@@ -312,7 +312,7 @@ class DotModel(torch.nn.Module):
         for i, seg_head in enumerate(self.segmentation_head):
             masks.append(seg_head(decoder_output[i]))
 
-        return masks[:3]
+        return masks[:3], decoder_output[0]
 
 if __name__ == '__main__':
     

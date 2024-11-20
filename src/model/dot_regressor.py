@@ -70,13 +70,15 @@ class DotRegressor(pl.LightningModule):
         optimizer.zero_grad(set_to_none=True)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        out, out_x2, out_x4 = self.network(x)
+        (out, out_x2, out_x4), decoder_output = self.network(x)
 
         out = nn.functional.interpolate(out, size=(self._mask_size[1], self._mask_size[0]), mode='bilinear', align_corners=True)
         out_x2 = nn.functional.interpolate(out_x2, size=(self._mask_size[1], self._mask_size[0]), mode='bilinear', align_corners=True)
         out_x4 = nn.functional.interpolate(out_x4, size=(self._mask_size[1], self._mask_size[0]), mode='bilinear', align_corners=True)
         
-        return out, out_x2, out_x4
+        decoder_output = nn.functional.interpolate(decoder_output, size=(self._mask_size[1], self._mask_size[0]), mode='bilinear', align_corners=True)
+        
+        return out, out_x2, out_x4, decoder_output
 
     def calculate_loss(self, y_pred, mask, gt, is_stage=False):
         if self._loss_function == 'dot':
