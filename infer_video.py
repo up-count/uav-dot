@@ -39,11 +39,11 @@ def main(cfg: DictConfig) -> None:
     
     cap = cv2.VideoCapture(cfg.video)
     
-    new_name = cfg.video.split("/")[-1].split(".")[0] + '.avi'
+    new_name = cfg.video.split("/")[-1].split(".")[0]
     org_shape = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
                  
     writter = cv2.VideoWriter(
-        f'./infer_results/pred_{new_name}',
+        f'./infer_results/pred_{new_name}.avi',
         cv2.VideoWriter_fourcc(*'XVID'),
         cap.get(cv2.CAP_PROP_FPS),
         (org_shape[0], org_shape[1])
@@ -52,14 +52,15 @@ def main(cfg: DictConfig) -> None:
     if not cap.isOpened():
         raise ValueError('Video not found.')
     
-    for _ in tqdm(range(int(cap.get(cv2.CAP_PROP_FRAME_COUNT)))):
+    csv_writter = open(f'./infer_results/pred_{new_name}.txt', 'w')
+    
+    for frame_id in tqdm(range(int(cap.get(cv2.CAP_PROP_FRAME_COUNT)))):
         ret, frame = cap.read()
         
         if not ret:
             print('Video ended.')
             break
 
-        
         # preprocess
         image = frame.copy()
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -82,6 +83,7 @@ def main(cfg: DictConfig) -> None:
         
         for x, y in zip(xs, ys):
             cv2.circle(frame, (int(x), int(y)), 7, (0, 0, 255), 3)
+            csv_writter.write(f'{frame_id},{int(x)},{int(y)}\n')
         
         writter.write(frame)
         
@@ -94,7 +96,9 @@ def main(cfg: DictConfig) -> None:
             
     cap.release()
     writter.release()
-    print(f'Saved video to ./infer_results/pred_{new_name}')
+    csv_writter.close()
+    print(f'Saved video to ./infer_results/pred_{new_name}.avi')
+    print(f'Saved predictions to ./infer_results/pred_{new_name}.txt')
     
     if viz:
         cv2.destroyAllWindows()
