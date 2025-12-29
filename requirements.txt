@@ -1,3 +1,4 @@
+numpy==1.26.4
 albumentations==1.0.3
 opencv-python==4.5.5.64
 torch==2.1.0
