@@ -7,7 +7,7 @@ import torch
 from omegaconf import DictConfig
 
 from pytorch_lightning.callbacks import ModelCheckpoint, ModelSummary, EarlyStopping, LearningRateMonitor
-from pytorch_lightning.loggers import NeptuneLogger
+from pytorch_lightning.loggers import TensorBoardLogger
 from torch.distributed.algorithms.ddp_comm_hooks import (
     default_hooks as default,
 )
@@ -72,10 +72,9 @@ def main(cfg: DictConfig) -> None:
     lr_monitor = LearningRateMonitor(logging_interval='step')
 
     if not cfg.debug:
-        logger = NeptuneLogger(
-            api_key=os.environ['NEPTUNE_API_TOKEN'],
-            project='Vision/UP-COUNT',
-            log_model_checkpoints=True,
+        logger = TensorBoardLogger(
+            save_dir='./logs/',
+            name='UP-COUNT',
         )
     else:
         logger = None

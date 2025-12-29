@@ -84,7 +84,7 @@ class DotDatamodule(LightningDataModule):
             train_data = sorted(train_data)[::4]
 
         augmentation = A.Compose([
-            A.Flip(),
+            A.HorizontalFlip(p=0.5),
             A.Rotate(limit=30, border_mode=cv2.BORDER_CONSTANT, value=0),
                                     
             A.OneOf([
